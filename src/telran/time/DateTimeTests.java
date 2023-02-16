@@ -92,5 +92,16 @@ class DateTimeTests {
 		assertEquals(startDate.plus(14, ChronoUnit.DAYS), startDate.with(new WorkingDays(10, dayOffsFrSa)));
 		assertEquals(startDate.plus(15, ChronoUnit.DAYS), startDate.with(new WorkingDays(11, dayOffsFrSa)));
 		assertEquals(startDate.plus(18, ChronoUnit.DAYS), startDate.with(new WorkingDays(12, dayOffsFrSa)));
+		
+		DayOfWeek[] allDayOffs = new DayOfWeek[]{
+				DayOfWeek.MONDAY,
+				DayOfWeek.TUESDAY,
+				DayOfWeek.WEDNESDAY,
+				DayOfWeek.THURSDAY,
+				DayOfWeek.FRIDAY, 
+				DayOfWeek.SATURDAY,
+				DayOfWeek.SUNDAY
+				};
+		assertEquals(startDate, startDate.with(new WorkingDays(100, allDayOffs)));
 	}
 }

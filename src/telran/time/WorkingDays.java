@@ -16,9 +16,13 @@ public class WorkingDays implements TemporalAdjuster {
 	
 	@Override
 	public Temporal adjustInto(Temporal temporal) {
-		return Stream.iterate(temporal.plus(1, ChronoUnit.DAYS), tp -> tp.plus(1, ChronoUnit.DAYS))
-				.filter( tp -> !dayOffs.contains(tp.get(ChronoField.DAY_OF_WEEK)) )
-				.limit(dayPlus).skip(dayPlus - 1).findFirst().get();
+		Temporal res = temporal;
+		if (dayOffs.size() < 7) {
+			res = Stream.iterate(temporal.plus(1, ChronoUnit.DAYS), tp -> tp.plus(1, ChronoUnit.DAYS))
+					.filter( tp -> !dayOffs.contains(tp.get(ChronoField.DAY_OF_WEEK)) )
+					.limit(dayPlus).skip(dayPlus - 1).findFirst().get();
+		}
+		return res;
 	}
 	
 	public WorkingDays(int dayPlus, DayOfWeek[] dayOffs) {
